@@ -9,5 +9,16 @@ The output can be used for [HHousen/TransformerExtSum](https://github.com/HHouse
 
 Steps:
 
-1. Download the data from [armancohan/long-summarization](https://github.com/armancohan/long-summarization) or with the following direct links: [PubMed](https://bit.ly/2VsKNvt) ([mirror](https://bit.ly/2VLPJuh)) and [ArXiv](https://bit.ly/2wWeVpp) ([mirror](https://bit.ly/2VPWnzs))
-2. Run the command `python process.py <arxiv_articles_dir> <pubmed_articles_dir>`
+1. Download the data from [armancohan/long-summarization](https://github.com/armancohan/long-summarization) or with the following direct links: [PubMed](https://bit.ly/2VsKNvt) ([mirror](https://bit.ly/2VLPJuh)) and [ArXiv](https://bit.ly/2wWeVpp) ([mirror](https://bit.ly/2VPWnzs)).
+2. Run the command `python process.py <arxiv_articles_dir> <pubmed_articles_dir>` (runtime: 5-10m).
+
+Commands:
+
+```
+pip install gdown
+gdown https://drive.google.com/uc?id=1lvsqvsFi3W-pE1SqNZI0s8NR9rC1tsja
+gdown https://drive.google.com/uc?id=1b3rmCSIoh6VhD4HKWjI4HOW-cSwcwbeC
+unzip pubmed-dataset.zip
+unzip arxiv-dataset.zip
+python process.py arxiv-dataset/ pubmed-dataset/
+```
