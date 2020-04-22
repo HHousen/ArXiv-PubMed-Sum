@@ -32,6 +32,9 @@ def write_to_bin(article_dir, save_path):
                 abstract_sents = article_info["abstract_text"]
                 article_sents = article_info["article_text"]
 
+                # remove the <S> and </S> tokens
+                abstract_sents = [x[4:-4] for x in abstract_sents]
+
                 # convert from lists of sentences to strings
                 abstract = " ".join(abstract_sents).strip()
                 article = " ".join(article_sents).strip()
