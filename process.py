@@ -30,8 +30,8 @@ def write_to_bin(article_dir, save_path):
                 print("Skipping line counting...")
             articles_info.seek(0)
 
-            for article_info in tqdm(
-                articles_info, desc="Loading Articles", total=num_articles
+            for idx, article_info in enumerate(
+                tqdm(articles_info, desc="Loading Articles", total=num_articles)
             ):
                 article_info = json.loads(article_info)
                 abstract_sents = article_info["abstract_text"]
@@ -40,14 +40,25 @@ def write_to_bin(article_dir, save_path):
                 # remove the <S> and </S> tokens
                 abstract_sents = [x[4:-4] for x in abstract_sents]
 
-                # remove newlines
-                # each document is sentence-tokenized
-                abstract = [sentence for sentence in abstract_sents if sentence != "\n"]
-                article = [sentence for sentence in article_sents if sentence != "\n"]
-
                 # convert from lists of sentences to strings
-                abstract = " ".join(abstract).strip()
-                article = " ".join(article).strip()
+                abstract_str = " ".join(abstract_sents).strip()
+                article_str = " ".join(article_sents).strip()
+
+                # remove newlines (pubmed dataset has newlines while arxiv probably does not)
+                # each document is sentence-tokenized
+                abstract = abstract_str.replace("\n", "")
+                article = article_str.replace("\n", "")
+
+                if "\n" in abstract or "\n" in article:
+                    logger.warn(
+                        "A newline character was found at index "
+                        + str(idx)
+                        + " in "
+                        + str(split)
+                        + ". Logging abstract and article. This indicates a problem in the data or this processing code."
+                    )
+                    logger.debug("Abstract: " + str(abstract_sents))
+                    logger.debug("Article: " + str(article_sents))
 
                 split_name = os.path.splitext(os.path.basename(split))[0]
 
