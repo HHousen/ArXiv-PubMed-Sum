@@ -15,6 +15,8 @@ def write_to_bin(article_dir, save_path):
     }
     splits = glob.glob(os.path.join(article_dir, "*.txt"))
     for split in tqdm(splits, desc="Loading Splits"):
+        num_articles_skipped = 0
+
         with open(split, "r") as articles_info:
             # count the number of lines in the file
             try:
@@ -40,10 +42,12 @@ def write_to_bin(article_dir, save_path):
                 # must have at least three sentences in the article
                 # there are some articles that have one sentence (probably an error during data collection)
                 if len(article_sents) <= 3:
+                    num_articles_skipped += 1
                     continue  # move to next article
-                
+
                 # must have at least two sentences in the abstract
                 if len(abstract_sents) <= 2:
+                    num_articles_skipped += 1
                     continue  # move to next article
 
                 # remove the <S> and </S> tokens
@@ -78,8 +82,8 @@ def write_to_bin(article_dir, save_path):
             if num_articles:
                 assert (
                     num_articles
-                    == len(dataset[split_name]["source"])
-                    == len(dataset[split_name]["target"])
+                    == len(dataset[split_name]["source"]) + num_articles_skipped
+                    == len(dataset[split_name]["target"]) + num_articles_skipped
                 ), (
                     "The number of processed articles does not equal the number of input articles. num_articles is "
                     + str(num_articles)
