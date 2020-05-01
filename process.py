@@ -37,6 +37,15 @@ def write_to_bin(article_dir, save_path):
                 abstract_sents = article_info["abstract_text"]
                 article_sents = article_info["article_text"]
 
+                # must have at least three sentences in the article
+                # there are some articles that have one sentence (probably an error during data collection)
+                if len(article_sents) <= 3:
+                    continue  # move to next article
+                
+                # must have at least two sentences in the abstract
+                if len(abstract_sents) <= 2:
+                    continue  # move to next article
+
                 # remove the <S> and </S> tokens
                 abstract_sents = [x[4:-4] for x in abstract_sents]
 
