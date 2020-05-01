@@ -1,0 +1,7 @@
+name: arxiv-pubmed-sum
+channels:
+    - conda-forge
+dependencies:
+    - tqdm
+    - matplotlib
+    - seaborn
