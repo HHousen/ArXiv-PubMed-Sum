@@ -61,8 +61,8 @@ Commands:
 
 ```
 pip install gdown
-gdown https://drive.google.com/uc?id=1lvsqvsFi3W-pE1SqNZI0s8NR9rC1tsja
-gdown https://drive.google.com/uc?id=1b3rmCSIoh6VhD4HKWjI4HOW-cSwcwbeC
+wget https://huggingface.co/HHousen/TransformerSum/resolve/main/arXiv-PubMed/arxiv-dataset.zip
+wget https://huggingface.co/HHousen/TransformerSum/resolve/main/arXiv-PubMed/pubmed-dataset.zip
 unzip pubmed-dataset.zip
 unzip arxiv-dataset.zip
 python process.py arxiv-dataset/ pubmed-dataset/
